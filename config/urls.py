@@ -17,6 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from Library.views import greetings, books, onSystem, template_books
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('greet/', greetings),
+    path('book/', books),
+    path('book/<str:name>/', books),
+    path('book/<str:author>/', books),
+    path('book/<str:name>/<str:author>/', books),
+    path('to_system/', onSystem),
+    path('t_books', template_books)
 ]
