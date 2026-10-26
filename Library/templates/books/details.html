@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+</head>
+<body>
+    <h2>Book details</h2>
+    <p>{{ bookname | truncatewords:10 }}</p>
+
+    <a href="{% url 'books' %}">Go back</a> <!--The url 'books', it's the value we assigned to the variable 'name' in the 'urls.py'-->
+</body>
+</html>

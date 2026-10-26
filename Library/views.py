@@ -26,7 +26,16 @@ def onSystem(request):
 def template_books(request):
     books_data = {
         'name': 'Don Quijote de la Mancha',
-        'author': 'Miguel de Cervantes'
+        'author': 'Miguel de Cervantes',
+        'price': 5
     }
 
     return render(request, 'books/index.html', books_data) # 'books/index.html' is the path of the file in the project
+
+
+# Practicing URL Tags
+def book_details(request):
+    details = {
+        'bookname': 'Don Quijote de la Mancha is famous book around the world, written by Miguel de Cervantes, a spanic author'
+    }
+    return render(request, 'books/details.html', details)

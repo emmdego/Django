@@ -6,11 +6,47 @@
     <title>Document</title>
 </head>
 <body>
+
+    <h1 style="text-align: center;">TEMPLATES</h1>
     <h2>Books in stock</h2>
     
     <br>
 
     <p><strong>Name: </strong>{{ name }}</p>
     <p><strong>Author: </strong>{{ author }}</p>
+    <a href="{% url 'details' %}">View details</a>
+    <br>
+
+
+    <h1 style="text-align: center;">TEMPLATE FILTERS</h1>
+    <p><strong>Name: </strong>{{ name | upper }}</p>
+    <p><strong>Name: </strong>{{ name | lower }}</p>
+    <p><strong>Name: </strong>{{ name | capfirst }}</p>
+    <p><strong>Name: </strong>{{ name | title }}</p>
+    <p><strong>Name: </strong>{{ name | truncatechars:10}}</p>
+    <p><strong>Name: </strong>{{ name | truncatewords:3}}</p>
+    <p><strong>Name: </strong>{{ name | cut:"qui"}}</p>
+
+    <br>
+
+    <h1 style="text-align: center;">TAGS</h1>
+    <p>Name: {{ name }}</p>
+    <p>Author: {{ author }}</p>
+
+    {% if price >= 50 %}
+    <p>Special Offer</p>
+    {% else %}
+    <p>Normal price</p>
+    {% endif %}
+
+
+    {% comment %}
+    This is a comment using Django
+    {% endcomment %}
+
+    {% for f in '123456' %}
+    <p>{{ f }}</p>
+    {% endfor %}
+
 </body>
 </html>

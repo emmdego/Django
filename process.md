@@ -220,3 +220,115 @@ Inside this index.html file, we create the visual part to show the variables of 
 
 
 And finally we import the new template function in [`config/urls.py`](./config/urls.py) and add a new path with the "template_books" function/view
+
+
+## FILTERS IN TEMPLATES
+As we saw in our `index.html`, we can call the variables like this:
+```
+{{ variable }}
+```
+And that would show the exact value of the variable we're calling
+
+But, if we want to display it on uppercase, lowercase, capitalize, etc. We can do it, actually we have a lot of filters for this variables/templates
+
+Example:
+```
+name = "Emmanuel"
+{{ name | upper }} = "EMMANUEL"
+```
+
+The most important ones are:
+- upper: Upper all the letters
+- lower: Lower all the letters
+- capfirst: Capitalize only the first word
+- title: Capitalize all the words
+- truncatechars:0: Displays the exact length of chars that we pass
+- truncatewords:0: Displays the exact length of words that we pass
+- cut:"?": Erases the exact strings passed
+
+
+
+# TAGS
+The tags help us to use conditionals and loops inside Templates/HTML. (It also helps us to write comments, but there's already comments in HTML: `<!--Comment-->`)
+
+The structure is: `{% conditional or loop %}`
+
+Example with if conditional:
+```
+{% if price >= 50 %}
+<p>Special Offer</p>
+{% else %}
+<p>Normal price</p>
+{% endif %}
+```
+
+Example with for loop:
+```
+{% for f in '123456' %}
+<p>{{ f }}</p>
+{% endfor %}
+```
+
+
+Example with comment:
+```
+{% comment %}
+This is a comment
+{% endcomment %}
+```
+
+---
+
+## URL TAGS
+The URL tags are the ones used for naming the views/paths of the system with the names that we assigned to it, so if we want to change their name, we don't have to do it manually
+
+Example:
+First we create a new view in our [views.py](./Library/views.py)
+```
+# Practicing URL Tags
+def book_details(request):
+    details = {
+        'bookname': 'Don Quijote de la Mancha is famous book around the world, written by Miguel de Cervantes, a spanic author'
+    }
+    return render(request, 'books/details.html', details)
+
+```
+
+Then we import it in [urls.py](./config/urls.py), and add it to the urlpatterns list:
+```
+path('t_books/details/', book_details, name="details")
+```
+See that in this case, we add a name variable to the path, so we only have to change it's name here
+
+And since 'details' is inside 't_books', we also have to give the variable name to 't_books':
+```
+path('t_books/', template_books, name="books")
+```
+
+Then we create the details URL tag in [`index.html`](./Library/templates/books/index.html):
+```
+<p><strong>Name: </strong>{{ name }}</p>
+<p><strong>Author: </strong>{{ author }}</p>
+<a href="{% url 'details' %}">View details</a>
+```
+The url 'details' it's referring to the value we gave to the variable name in the path of urlpatterns in the [urls.py](./config/urls.py) file
+
+
+Then we create the 'details.html' we told on views.py creating the 'book_details' view:
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+</head>
+<body>
+    <h2>Book details</h2>
+    <p>{{ bookname | truncatewords:10 }}</p>
+
+    <a href="{% url 'books' %}">Go back</a> <!--The url 'books', it's the value we assigned to the variable 'name' in the 'urls.py'-->
+</body>
+</html>
+```
+Right here we have a link to the index.html, referring to the name of the path we want to go
